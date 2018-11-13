@@ -1,5 +1,15 @@
 <html>
 	<head>
+	<Style>
+
+#fil{
+    padding: 10px;
+    background: teal; 
+    display: table;
+     }
+
+
+	</style>
 		<title>student-signup</title>
 		<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,15 +44,17 @@
   </div>
 </div>
 	<div class="wrap">
-<h2> SIGN-UP HERE</h2>
-<form method="POST" >
-	<input type="text" name="usn" placeholder="Your Username" required><br>
-<input type ="text" name="name" placeholder="Your Full name" required><br>
+<h2> SIGNUP</h2>
+<form method="POST" enctype="multipart/form-data" >
+	<input type="text" name="usn" placeholder="Your Username" required ><br>
+<input type ="text" name="name" placeholder="Your Full name" required ><br>
 <input type="text" name="email" placeholder="Valid Email" required><br>
 <input type ="text" name="branch" placeholder="Your branch" required><br>
-<input type="password" name="password" placeholder="Password" required>
+<input type="password" name="password" placeholder="Password" required >
 <br>
-<input type ="text" name="phone" placeholder="Your Phone no" required><br>
+<input type ="text" name="phone" placeholder="Your Phone no" required ><br><br>
+<input type="file" name="resume" placeholder="File " required size="60" id="files">
+	<br>
 <input type ="submit" name="signup" value="Signup"><br>
 
 
@@ -66,17 +78,32 @@ $usn=strtoupper($_POST['usn']);
 $name=strtoupper($_POST['name']);
 $email=strtoupper($_POST['email']);
 $branch=strtoupper($_POST['branch']);
-$password=$_POST['password'];
+$password =trim($_POST['password']);
+
+
+if(isset($_FILES['resume']))
+{
+	$filename="resumes/".$usn;
+
+	if(move_uploaded_file($_FILES['resume']['tmp_name'],$filename.".pdf"))
+	{
+  echo "uploaded";
+	}
+else
+{
+ echo	$_FILES['resume']['error'];
+}
+}
+//$password=$_POST['password'];
 $phone=$_POST['phone'];
 $query_check="select usn from candidate where usn='$usn';";
 $result=mysqli_query($conn,$query_check);
 $row=mysqli_fetch_array($result,MYSQLI_ASSOC);
 	if(!$row)
 	{	
-$query="Insert into candidate(usn,name,email,password,phone,branch) values('$usn','$name','$email',('$password'),'$phone','$branch');";
+$query="Insert into candidate(usn,name,email,password,phone,branch) values('$usn','$name','$email',md5('$password'),'$phone','$branch');";
 if(mysqli_query($conn,$query))
    {
-echo 'REGISTERED..';
 	$newurl='student_login.php';
 	header('Location:' .$newurl);
     }
@@ -88,7 +115,7 @@ echo 'error: ' .mysqli_error($conn);
 	}
 	else
 	{
-		echo 'already registered user';
+		echo "<script>alert('already registered user');</script>";
 	}
 }
 ?>

@@ -46,7 +46,9 @@ session_start();
 		<input type="text" name="usn" placeholder="Enter your USN" required>
 			<br>
 		<input type="password" name="password" placeholder="Password " required>
+
 			<br>
+		
 		<input type="submit" name="login" value="login">
 		
 		</form>
@@ -66,8 +68,12 @@ if (!$conn) {
 if(isset($_POST['login'])!='')
 {
 $usn=$_POST['usn'];
-$password=$_POST['password'];
-$query_check="select name from candidate where usn='$usn' and password='$password';";
+//$password=($_POST['password']);
+$password =md5($_POST['password']);
+
+//echo $password;
+//$apassword=md5($password);
+$query_check="select name from candidate where usn='$usn' and password='$password'";
 $result=mysqli_query($conn,$query_check);
 $row=mysqli_fetch_array($result,MYSQLI_ASSOC);
 	if($row)
@@ -79,10 +85,8 @@ $row=mysqli_fetch_array($result,MYSQLI_ASSOC);
     }
 else if(!$row)
 	{
-		echo 'incorrect';
+		echo '<script>alert("Wrong credentials");</script>';
 	}
 }		?>
-
-	
 	</body>
 </html>

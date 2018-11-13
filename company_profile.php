@@ -8,9 +8,9 @@ session_start();
 		<style>
 
        #tables_set{
-		width : 700px;	
-            height : 400px;	
-			padding: 15px;
+		width : 800px;	
+            height : 500px;	
+			padding: 20px;
     text-align: left;
 	   }
 	   th {
@@ -18,16 +18,14 @@ session_start();
     color: white;
 }
 
-	   table.highlight tbody tr:hover {
-    background-color: #69f0ae  !important;
-}
+	  
 
 			</style>
 	<link rel="stylesheet" href="./materialize.min.css">
 <!--Import Google Icon Font-->
 <link href="./icons.css" rel="stylesheet">
 </head>
-<nav class="nav-wrapper indigo">
+<nav class="nav-wrapper black">
 	<div class="container">
 		<a href="#" class="brand-logo"> <img class="responsive-img" id="logo" src="./pes_logo.png"/> </a>
         <a href="#" class="sidenav-trigger" data-target="mobile-links">
@@ -116,7 +114,7 @@ if(mysqli_query($conn,$query))
 
 else if($row)
 {
-	echo "<h5 align=\"center\"> You have already submitted the description and eligibility criteria</h5>";
+	echo "<h6 align=\"center\"> You have already submitted the description and eligibility criteria</h6>";
 	echo "<script> document.getElementById('ta1').readOnly = \"true\";
 	document.getElementById('ta2').readOnly = \"true\";
 	document.getElementById('sub').disabled = \"true\";</script>;";
@@ -130,9 +128,13 @@ echo " <div id=\"tables_set\" align=\"center\">";
 	<th>USN</th>
 	<th>Name</th>
 	<th>BRANCH</th>
+	<th> Cgpa</th>
+	<th>Strong Skills </th>
+	<th>Resumes </th>
+
 	</tr>
 	</thead>";
-	$query3="select usn,branch from company_apply where Company_id='$company_id';";
+	$query3="select usn,branch,Skills,CGPA from company_apply where Company_id='$company_id';";
 	$result3=mysqli_query($conn,$query3);	
 	while($row3 = mysqli_fetch_array($result3))
 	{   
@@ -148,6 +150,9 @@ echo " <div id=\"tables_set\" align=\"center\">";
 		 echo "<td>" . strtoupper($usn3) . "</td>";
 		 echo "<td>" . strtoupper($row4['name']) . "</td>";
 		 echo "<td>" . strtoupper($row3['branch']) . "</td>";
+		 echo "<td>" .$row3['CGPA']."</td>";
+         echo "<td>" .$row3['Skills'] ."</td>";
+		 echo "<td> <a href='resumes/".$row3['usn'].".pdf'>Resume</a></td>";
 		 echo "</tr>";
 		}
 	}

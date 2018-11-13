@@ -18,8 +18,9 @@ p{
 	<link rel="stylesheet" href="./materialize.min.css">
 <!--Import Google Icon Font-->
 <link href="./icons.css" rel="stylesheet">
+<meta http-equiv="refresh" content="<?php echo $sec?>;URL='<?php echo $page?>'">
 </head>
-<nav class="nav-wrapper indigo">
+<nav class="nav-wrapper black">
 	<div class="container">
 		<a href="#" class="brand-logo"> <img class="responsive-img" id="logo" src="./pes_logo.png"/> </a>
         <a href="#" class="sidenav-trigger" data-target="mobile-links">
@@ -45,7 +46,7 @@ p{
 <body>
 	<div class="container" align="Center">
 <h2 id="intro"> </h2>	<BR>
-<form method="post">
+<form method="post" action="#">
  <h5><br> Title </h5><input type="text" name="title" style="width:400px;" ><br>
 <h5><br>Please share your experience below</h5>	
 			<br><textarea class="materialize-textarea" name="description" id="ta2"></textarea>
@@ -97,7 +98,10 @@ while($row1=mysqli_fetch_array($result1))
    </div>   
   </div>';
   $img=$img+1;
-  
+  if($img==6)
+  {
+$img=0;
+  }
 }
 
 if(isset($_POST['description']))	
@@ -112,8 +116,10 @@ if(isset($_POST['description']))
  
     if($result)
 	{ echo '<script> window.alert("Posted");</script>';
-	}
-	
+$page = $_SERVER['PHP_SELF'];
+$sec = "1";
+    
+	}	
 }
 ?>
 
