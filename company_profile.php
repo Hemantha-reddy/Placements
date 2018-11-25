@@ -17,17 +17,46 @@ session_start();
     background-color: #3f51b5;
     color: white;
 }
+	  
+#tables_set{
+		width : 700px;	
+            height : 400px;	
+			padding: 15px;
+    text-align: left;
+	   }
+	  #table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+ td,  th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+ tr:nth-child(even){background-color: #f2f2f2;}
+
+ tr:hover {background-color: #ddd;}
+
+ th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
 
 	  
 
 			</style>
-	<link rel="stylesheet" href="./materialize.min.css">
+	<link rel="stylesheet" href="./css/materialize.min.css">
 <!--Import Google Icon Font-->
-<link href="./icons.css" rel="stylesheet">
+<link href="./css/icons.css" rel="stylesheet">
 </head>
 <nav class="nav-wrapper black">
 	<div class="container">
-		<a href="#" class="brand-logo"> <img class="responsive-img" id="logo" src="./pes_logo.png"/> </a>
+		<a href="#" class="brand-logo"> <img class="responsive-img" id="logo" src="./images/pes_logo.png"/> </a>
         <a href="#" class="sidenav-trigger" data-target="mobile-links">
 			<i class="material-icons">menu</i>
 		</a>
@@ -114,15 +143,18 @@ if(mysqli_query($conn,$query))
 
 else if($row)
 {
-	echo "<h6 align=\"center\"> You have already submitted the description and eligibility criteria</h6>";
+	echo "<h6 align=\"center\"> *You have already submitted the description and eligibility criteria</h6>";
 	echo "<script> document.getElementById('ta1').readOnly = \"true\";
 	document.getElementById('ta2').readOnly = \"true\";
 	document.getElementById('sub').disabled = \"true\";</script>;";
 }
 
+
+echo "<div align='center'>";
 echo "<h5> Students applied</h5>";
 echo " <div id=\"tables_set\" align=\"center\">";
-	echo "<table class=\"striped bordered highlight\" border=\"1\">
+	echo "<table class=\" bordered highlight\" border=\"1\">
+
 	<thead>
 	<tr>
 	<th>USN</th>
@@ -158,11 +190,12 @@ echo " <div id=\"tables_set\" align=\"center\">";
 	}
 	echo "</tbody>";
 	echo "</table>"; 
+	echo "</div>";
 	echo "</div>";	
  ?>
- <script src="./jquery-3.3.1.min.js"></script>
+ <script src="JS/jquery-3.3.1.min.js"></script>
 <!-- Compiled and minified JavaScript -->
-<script src="./materialize.min.js"></script>
+<script src="JS/materialize.min.js"></script>
 
 <script>
 $(document).ready(function(){

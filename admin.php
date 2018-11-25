@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['logged_in1']='false';
 ?>
 <html>
 	<head>
@@ -47,8 +48,9 @@ $password1=md5($_POST['password']);
 $query_check="select Username from admin where Username ='$Username' and password='$password1';";
 $result=mysqli_query($conn,$query_check);
 	if($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
-	{   
-		$newurl='delete.php';
+	{
+		$_SESSION['logged_in1']='true';
+	    $newurl='delete.php';
 	    header('Location:' .$newurl);
     }
 

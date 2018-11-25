@@ -13,14 +13,14 @@
 		<title>student-signup</title>
 		<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="w3.css">
-		<link rel="stylesheet" href="form.css">
+		<link rel="stylesheet" href="css/w3.css">
+		<link rel="stylesheet" href="css/form.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="./css/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <body>
@@ -28,17 +28,17 @@
 <div class="w3-top">
   <div class="w3-row w3-padding w3-black">
     <div class="w3-col s2">
-      <a href="indexx.html" class="w3-button w3-block w3-black" >HOME</a>
+      <a href="./indexx.html" class="w3-button w3-block w3-black" >HOME</a>
     </div>
    
     <div class="w3-col s2">
-      <a href="company_login.php" class="w3-button w3-block w3-black">COMPANY-LOGIN</a>
+      <a href=".company_login.php" class="w3-button w3-block w3-black">COMPANY-LOGIN</a>
     </div>
     <div class="w3-col s2">
-      <a href="student_login.php" class="w3-button w3-block w3-black">STUDENT-LOGIN</a>
+      <a href="./student_login.php" class="w3-button w3-block w3-black">STUDENT-LOGIN</a>
 	</div>
 	<div class="w3-col s2">
-      <a href="company_signup.php" class="w3-button w3-block w3-black">COMPANY-SIGNUP</a>
+      <a href="./company_signup.php" class="w3-button w3-block w3-black">COMPANY-SIGNUP</a>
     </div>
    
   </div>
@@ -52,8 +52,9 @@
 <input type ="text" name="branch" placeholder="Your branch" required><br>
 <input type="password" name="password" placeholder="Password" required >
 <br>
+
 <input type ="text" name="phone" placeholder="Your Phone no" required ><br><br>
-<input type="file" name="resume" placeholder="File " required size="60" id="files">
+<input type="file" name="resume" placeholder="Resume " required size="60" id="files">
 	<br>
 <input type ="submit" name="signup" value="Signup"><br>
 
@@ -71,6 +72,7 @@ $conn = mysqli_connect($servername, $username, $password,$dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
 	
 if(isset($_POST['signup'])!='')
 {
@@ -119,5 +121,13 @@ echo 'error: ' .mysqli_error($conn);
 	}
 }
 ?>
+<script>
+$('#password, #repassword').on('keyup', function () {
+  if ($('#password').val() == $('#repassword').val()) {
+    $('#message').html('Matching').css('color', 'green');
+  } else 
+    $('#message').html('Not Matching').css('color', 'red');
+});
+</script>
 </body>
 </html>

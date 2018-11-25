@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['logged_in']='false';
 ?>
 <html>
 	<head>
@@ -7,8 +8,8 @@ session_start();
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="w3.css">
-<link rel="stylesheet" href="form.css">
+<link rel="stylesheet" href="./css/w3.css">
+<link rel="stylesheet" href="./css/form.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
 
 
@@ -79,7 +80,8 @@ $row=mysqli_fetch_array($result,MYSQLI_ASSOC);
 	if($row)
 	{$_SESSION['usn']=$usn;
 	 $_SESSION['name']=$row['name'];
-	   $newurl='student_profile.php';
+		 $newurl='student_profile.php';
+    $_SESSION['logged_in']='true';
 	    header('Location:'.$newurl);
         //echo $_SESSION['name'];
     }

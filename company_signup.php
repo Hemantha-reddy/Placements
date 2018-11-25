@@ -3,8 +3,8 @@
 		<title> Company signup</title>
 		<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="w3.css">
-<link rel="stylesheet" href="form.css">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/form.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
 
 
@@ -19,17 +19,17 @@
 <div class="w3-top">
   <div class="w3-row w3-padding w3-black">
     <div class="w3-col s2">
-      <a href="indexx.html" class="w3-button w3-block w3-black" >HOME</a>
+      <a href="./indexx.html" class="w3-button w3-block w3-black" >HOME</a>
     </div>
    
     <div class="w3-col s2">
-      <a href="company_login.php" class="w3-button w3-block w3-black">COMPANY-LOGIN</a>
+      <a href="./company_login.php" class="w3-button w3-block w3-black">COMPANY-LOGIN</a>
     </div>
     <div class="w3-col s2">
-      <a href="student_login.php" class="w3-button w3-block w3-black">STUDENT-LOGIN</a>
+      <a href="./student_login.php" class="w3-button w3-block w3-black">STUDENT-LOGIN</a>
 	</div>
 	<div class="w3-col s2">
-      <a href="signup.php" class="w3-button w3-block w3-black">STUDENT-SIGNUP</a>
+      <a href="./signup.php" class="w3-button w3-block w3-black">STUDENT-SIGNUP</a>
     </div>
    
   </div>

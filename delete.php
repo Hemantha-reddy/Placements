@@ -1,5 +1,10 @@
 <?php
 session_start();
+if($_SESSION['logged_in1']=='false'){
+	echo '<script> alert("Please login first");
+	 window.location.href="./admin.php";</script>';
+}
+
 ?>
 <html>
 	<head>
@@ -33,10 +38,10 @@ session_start();
 	</style>
 	<link rel="stylesheet" href="./materialize.min.css">
 <!--Import Google Icon Font-->
-<link href="./icons.css" rel="stylesheet">
-<script src="./jquery-3.3.1.min.js"></script>
+<link href="./css/icons.css" rel="stylesheet">
+<script src="./JS/jquery-3.3.1.min.js"></script>
 <!-- Compiled and minified JavaScript -->
-<script src="./materialize.min.js"></script>
+<script src="./JS/materialize.min.js"></script>
 </head>
 <div align="center">
 		<form method="post">
@@ -64,7 +69,7 @@ while($row1=mysqli_fetch_array($result1))
 	<div class="col s12 m6"><span>
 	<div class="card">
 	  <div class="card-image waves-effect waves-block waves-light">
-	  <img class="activator" src="Experience';
+	  <img class="activator" src="./images/Experience';
 	  echo $img;
 	  echo '.jpg">
 	  </div>
@@ -164,13 +169,21 @@ $query4="insert into student_hired values('$cid','$usn','$branch');";
 $result4=mysqli_query($conn,$query4);
 if(mysqli_affected_rows($conn)>0)
 {
-echo "<script>alert('set');</script>";
-  }
-  else if(mysqli_affected_rows($conn)==0)
+  $queryss="call update_status('$branch');";
+  $resultss=mysqli_query($conn,$queryss);
+  if(mysqli_affected_rows($conn)>0)
   {
-    echo "<script>alert('not DEleted');</script>";
+    echo "<script>alert('set in statistics');</script>";
   }
+  $queryss1="call update_company_login('$usn');";
+  $resultss1=mysqli_query($conn,$queryss1);
+  if(mysqli_affected_rows($conn)>0)
+  {
+    echo "<script>alert('deleted from company applied');</script>";
   }
+}
+  
+}
 
 ?>
 <div align="right">

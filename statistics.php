@@ -1,5 +1,6 @@
 <?php
 session_start();
+$value = array(4);
 if($_SESSION['logged_in']=='false'){
 	echo '<script> alert("Please login first");
 	 window.location.href="./student_login.php";</script>';
@@ -11,12 +12,6 @@ if($_SESSION['logged_in']=='false'){
 	</TITLE>
 		<style>
 
-       #tables_set{
-		width : 700px;	
-            height : 400px;	
-			padding: 15px;
-    text-align: left;
-	   }
 	  
 #tables_set{
 		width : 700px;	
@@ -48,9 +43,9 @@ if($_SESSION['logged_in']=='false'){
 }
 
 			</style>
-	<link rel="stylesheet" href="css/materialize.min.css">
+	<link rel="stylesheet" href="./css/materialize.min.css">
 <!--Import Google Icon Font-->
-<link href="css/icons.css" rel="stylesheet">
+<link href="./css/icons.css" rel="stylesheet">
 </head>
 <nav class="nav-wrapper black">
 	<div class="container">
@@ -88,56 +83,70 @@ $conn = mysqli_connect($servername, $username, $password,$dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-$usn=$_SESSION['usn'];
-$query_check="select Company_id from company_apply where usn='$usn';";
-$result=mysqli_query($conn,$query_check);
-if($_SESSION['statuss']=='close')
-		{
-			echo "<h5 align='center'>You have got placed so you have been removed from all applied companies</h5>";
-		}
-		else if($_SESSION['statuss']=='open'){
-			if(mysqli_num_rows($result)==0)
-	{
-		echo "<h5 align='center'>You have not applied for any companies</h5>";
-	}
-	else{
-echo "<div align='center'><h5> Companies applied</h4><br>";
+echo "<div align='center'><h5> STATISTICS</h4><br>";
 echo " <div id=\"tables_set\" align=\"center\">";
 	echo "<table class=\" bordered highlight\" border=\"1\">
 	<thead>
 	<tr>
-	<th>USN</th>
-	<th>COMPANY ID</th>
-	<th>Company name</th>
+	<th>BRANCH</th>
+	<th>STUDENTS</th>
 	</tr>
 	</thead>";
-	
-	if(mysqli_num_rows($result)==0)
-	{
-		echo "<h5 align='center'>You have not applied for any companies</h5>";
-	}
-	while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
-	{   
-		$cid=$row['Company_id'];
-		$QUERY4="SELECT Company_name from comany_login where Company_id='$cid';";
+	$i=0;
+    $QUERY4="SELECT * from statistics;";
 		$result4=mysqli_query($conn,$QUERY4);
-		$row4 = mysqli_fetch_array($result4);
+	while($row4 = mysqli_fetch_array($result4))
+	{   
+		$value[$i]=($row4['no_of_students']);
 		echo "<tbody>";	
 		 echo "<tr>";
-		 echo "<td>" . strtoupper($usn) . "</td>";
-		 echo "<td>" . strtoupper($row['Company_id']) . "</td>";
-		 echo "<td>" . strtoupper($row4['Company_name']) . "</td>";
+		 echo "<td>" . ($row4['branch']) . "</td>";
+		 echo "<td>" . ($row4['no_of_students']) . "</td>";
 		 echo "</tr>";
+		 $i++;
 		}
 	
 	echo "</tbody>";
 	echo "</table>"; 
 	echo "</div>";	
-	echo "</div>";}}
+	echo "</div>";
  ?>
- <script src="JS/jquery-3.3.1.min.js"></script>
+ <script type="text/javascript">
+window.onload = function () {
+	var chart = new CanvasJS.Chart("chartContainer",
+	{
+		title:{
+			text: "	Placements in 2018"
+		},
+		legend: {
+			maxWidth: 350,
+			itemWidth: 60
+		},
+		data: [
+		{
+			type: "pie",
+			showInLegend: true,
+			toolTipContent: "{y} Students - #percent %",
+			legendText: "{indexLabel}",
+			dataPoints: [
+				{ y: <?php echo $value[0];?> , indexLabel: "ISE" },
+				{ y: <?php echo $value[1];?>, indexLabel: "CSE" },
+				{ y: <?php echo $value[2];?>, indexLabel: "ME" },
+				{ y: <?php echo $value[3];?>, indexLabel: "ECE"}
+			]
+		}
+		]
+	});
+	chart.render();
+}
+</script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<body>
+<div id="chartContainer" style="height: 450px; width: 100%;"></div>
+ <script src="./JS/jquery-3.3.1.min.js"></script>
 <!-- Compiled and minified JavaScript -->
-<script src="JS/materialize.min.js"></script>
+<script src="./JS/materialize.min.js"></script>
 
 <script>
 $(document).ready(function(){

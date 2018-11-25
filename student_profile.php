@@ -1,5 +1,9 @@
 <?php
 session_start();
+if($_SESSION['logged_in']=='false'){
+	echo '<script> alert("Please login first");
+	 window.location.href="./student_login.php";</script>';
+}
 $usns=trim($_SESSION['usn']);
 $usns=strtoupper($usns);
 $status='';
@@ -55,14 +59,14 @@ p{
 	font-size:'30px';
 }
 </style>
-<link href="./fonts.css" rel="stylesheet">
-<link rel="stylesheet" href="./materialize.min.css">
+<link href="./css/fonts.css" rel="stylesheet">
+<link rel="stylesheet" href="./css/materialize.min.css">
 <!--Import Google Icon Font-->
-<link href="./icons.css" rel="stylesheet">
+<link href="./css/icons.css" rel="stylesheet">
 </head>
 <nav><div class="nav-wrapper black">
 	<div class="container">
-	<a href="#" class="brand-logo"> <img class="responsive-img" id="logo" src="./pes_logo.png"/> </a>
+	<a href="#" class="brand-logo"> <img class="responsive-img" id="logo" src="./images/pes_logo.png"/> </a>
         <a href="#" class="sidenav-trigger" data-target="mobile-links">
 			<i class="material-icons">menu</i>
 		</a>
@@ -107,16 +111,16 @@ $conn = mysqli_connect($servername, $username, $password,$dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-$query6="select name,usn,email,phone,status,branch from candidate where usn='$usns';";
+$query6="select name,usn,email,phone,STatus,branch from candidate where usn='$usns';";
 $result6=mysqli_query($conn,$query6);
 
 if($row6 = mysqli_fetch_array($result6))
-{
+{$_SESSION['statuss']=$row6['STatus'];
 echo '<br><div class="row">
 	<div class="col s12 m6"><span>
 	<div class="card">
 	  <div class="card-image waves-effect waves-block waves-light">
-	  <img class="activator" src="profile.jpg">
+	  <img class="activator" src="./images/profile.jpg">
 	  </div>
 	  <div class="card-content">
 	  <span class="card-title activator">Profile</span>
@@ -134,18 +138,23 @@ echo '<br><div class="row">
 		  echo '<br>';
 		  echo "Phone: ".$row6['phone'];
 		  echo '<br>';
-		  echo "Status: ".$row6['status'];
-		  echo '</p></h5></div>
+		  echo "Status: ".$row6['STatus'];
+		  echo "<br>";
+		  $resume="./resumes/".$row6['usn'].".pdf";
+		  echo '<a href="';
+		  echo $resume;
+		  echo '"> Resume </a>';
+		  echo "</p></h5></div>
    </div>
    </div>   
-  </div>';
+  </div>";
 }
-$query5="select status from candidate where usn='$usns';";
+$query5="select STatus from candidate where usn='$usns';";
 $result5=mysqli_query($conn,$query5);
 $row5 = mysqli_fetch_array($result5);
-if($row5['status']=='open'){
+if($row5['STatus']=='open'){
 	$status='open';}
-	else if($row5['status']=='close')
+	else if($row5['STatus']=='close')
 {
 	$status='close';
 	echo '<script> alert("You have already been placed. You cannot apply anymore");</script>';
@@ -195,7 +204,7 @@ echo "</table>";
 </div>
 		</form>
 		<?php
-	if($row5['status']=='open')
+	if($row5['STatus']=='open')
 	{
 		
 	if(isset($_POST['company_id'])!="")
@@ -231,16 +240,16 @@ echo "</table>";
 			 }	
 	}
 }}}
-else if ($row5['status']=='close')
+else if ($row5['STatus']=='close')
 {echo "<script> document.getElementById('apply').disabled = \"true\";
 	</script>;";
 	}
 		?>
 		
 	</body>
-	<script src="./jquery-3.3.1.min.js"></script>
+	<script src="./JS/jquery-3.3.1.min.js"></script>
 <!-- Compiled and minified JavaScript -->
-<script src="./materialize.min.js"></script>
+<script src="./JS/materialize.min.js"></script>
 	<script>
 $(document).ready(function(){
 	$('.sidenav').sidenav();

@@ -1,5 +1,10 @@
 <?php
 session_start();
+$value = array(4);
+if($_SESSION['logged_in']=='false'){
+	echo '<script> alert("Please login first");
+	 window.location.href="./student_login.php";</script>';
+}
 ?>
 <html>
 	<head>
@@ -22,7 +27,7 @@ p{
 </head>
 <nav class="nav-wrapper black">
 	<div class="container">
-		<a href="#" class="brand-logo"> <img class="responsive-img" id="logo" src="./pes_logo.png"/> </a>
+		<a href="#" class="brand-logo"> <img class="responsive-img" id="logo" src="./images/pes_logo.png"/> </a>
         <a href="#" class="sidenav-trigger" data-target="mobile-links">
 			<i class="material-icons">menu</i>
 		</a>
@@ -78,7 +83,7 @@ while($row1=mysqli_fetch_array($result1))
 	<div class="col s12 m6"><span>
 	<div class="card">
 	  <div class="card-image waves-effect waves-block waves-light">
-	  <img class="activator" src="Experience';
+	  <img class="activator" src="./images/Experience';
 	  echo $img;
 	  echo '.jpg">
 	  </div>
